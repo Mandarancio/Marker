@@ -58,6 +58,8 @@ namespace Marker {
       }
       
       preview.render (editor.text, null, uri);
+      
+      update_title ();
     }
     
     public void update_title () {
@@ -72,7 +74,7 @@ namespace Marker {
       }
       
       if (editor.modified) {
-        title = @"*$title";
+        title = "*%s".printf (title);
       }
       
       headerbar.title = title;

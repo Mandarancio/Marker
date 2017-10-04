@@ -42,8 +42,6 @@ namespace Marker {
       <body>
     """);
     
-    buffer.puts (builder.str);
-    
     document.render (buffer, markdown.data);
     
     builder.erase ();
