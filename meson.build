@@ -1,4 +1,4 @@
-project('Marker', 'c')
+project('Marker', 'vala', 'c')
 
 PREFIX = get_option('prefix')
 DATA_DIR = join_paths(PREFIX, 'share')
@@ -16,15 +16,11 @@ res = gnome.compile_resources(
 )
 
 marker_sources = [
-  'src/marker.c',
-  'src/marker-editor-window.c',
-  'src/marker-exporter.c',
-  'src/marker-markdown.c',
-  'src/marker-prefs.c',
-  'src/marker-source-view.c',
-  'src/marker-preview.c',
-  'src/marker-string.c',
-  'src/marker-widget.c',
+  'src/MarkerApplication.vala',
+  'src/MarkerEditorWindow.vala',
+  'src/MarkerPreview.vala',
+  'src/MarkerEditor.vala',
+  'src/MarkerMarkdown.vala',
   res
 ]
 
@@ -40,49 +36,36 @@ hoedown_sources = [
   'src/hoedown/version.c'
 ]
 
+sources = [
+  marker_sources, hoedown_sources
+]
+
 deps = [
   dependency('gtk+-3.0'),
   dependency('glib-2.0'),
-  dependency('gtksourceview-3.0'),
-  dependency('webkit2gtk-4.0')
+  dependency('gobject-2.0'),
+  dependency('webkit2gtk-4.0'),
+  dependency('gtksourceview-3.0')
 ]
 
-add_global_arguments(
-  '-DSTYLES_DIR="@0@/"'.format(STYLES_DIR),
-  language : 'c'
+custom_includes = [
+  include_directories('src/hoedown')
+]
+
+add_project_arguments(
+  [
+    '--vapidir', join_paths(meson.current_source_dir(), 'vapi'),
+    '--pkg', 'hoedown',
+    '--pkg', 'posix'
+  ],
+  language : 'vala'
 )
 
 executable(
   EXECUTABLE_NAME,
-  sources : [marker_sources, hoedown_sources],
+  sources : sources,
   dependencies : deps,
+  include_directories : custom_includes,
   install : true
 )
-
-install_data(
-  'data/com.github.fabiocolacio.marker.svg',
-  install_dir : join_paths(DATA_DIR, 'icons/hicolor/scalable/apps')
-)
-
-install_data(
-  'data/com.github.fabiocolacio.marker-symbolic.svg',
-  install_dir : join_paths(DATA_DIR, 'icons/hicolor/symbolic/apps')
-)
-
-install_data(
-  'data/com.github.fabiocolacio.marker.desktop',
-  install_dir : join_paths(DATA_DIR, 'applications')
-)
-
-install_data(
-  'data/com.github.fabiocolacio.marker.gschema.xml',
-  install_dir : join_paths(DATA_DIR, 'glib-2.0/schemas')
-)
-
-install_subdir(
-  'data/styles',
-  install_dir : APP_DIR
-)
-
-meson.add_install_script('post-install.sh')
 

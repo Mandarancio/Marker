@@ -118,7 +118,8 @@
   </menu>
   
   <!-- Header Bar -->
-  <object class="GtkHeaderBar" id="header_bar">
+  <object class="GtkHeaderBar" id="headerbar">
+    <property name="show_close_button">True</property>
     <child>
       <object class="GtkButton">
         <property name="label">Open...</property>
