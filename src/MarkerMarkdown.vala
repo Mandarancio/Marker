@@ -24,40 +24,31 @@ namespace Marker {
     var document = new Hoedown.Document (renderer, extensions);
     
     var builder = new StringBuilder ();
-    builder.append (
-    """
-    <!doctype html>
-    <html>
-      <header>
-        <meta charset="UTF-8">
-    """);
+    
+    builder.append ("<!doctype html>\n");
+    builder.append ("<html>\n");
+    builder.append ("<header>\n");
+    builder.append ("<meta charset=\"UTF-8\">\n");
     
     if (stylesheet_location != null) {
-      builder.append ("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">".printf (stylesheet_location));
+      builder.append ("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">\n".printf (stylesheet_location));
     }
     
-    builder.append (
-    """
-      </header>
-      <body>
-    """);
+    builder.append ("</header>\n");
+    builder.append ("<body>\n");
+    
+    buffer.puts (builder.str);
     
     document.render (buffer, markdown.data);
     
     builder.erase ();
     
-    builder.append (
-    """
-      </body>
-    </html>
-    """
-    );
+    builder.append ("</body>\n");
+    builder.append ("</html>\n");
     
     buffer.puts (builder.str);
     
     var html = buffer.to_string ();
-    
-    stdout.printf ("%s\n", html);
     
     return html;
   }

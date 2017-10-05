@@ -21,6 +21,7 @@ marker_sources = [
   'src/MarkerPreview.vala',
   'src/MarkerEditor.vala',
   'src/MarkerMarkdown.vala',
+  'src/MarkerSettings.vala',
   res
 ]
 

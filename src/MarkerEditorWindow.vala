@@ -11,6 +11,13 @@ namespace Marker {
       construct; get; default = null;
     }
 
+    public enum ViewMode {
+      EDITOR_ONLY,
+      PREVIEW_ONLY,
+      DUAL_PANE_MODE,
+      DUAL_WINDOW_MODE
+    }
+
     public EditorWindow (Gtk.Application app) {
       Object (application: app);
       
@@ -52,14 +59,19 @@ namespace Marker {
     }
     
     private void buffer_changed () {
+      render_preview ();
+      
+      update_title ();
+    }
+    
+    public void render_preview () {
       string? uri = null;
+      
       if (file != null) {
         uri = file.get_uri ();
       }
       
-      preview.render (editor.text, null, uri);
-      
-      update_title ();
+      preview.render (editor.text, Marker.Settings.get_css_theme (), uri);
     }
     
     public void update_title () {
