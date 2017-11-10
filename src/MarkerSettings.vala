@@ -10,11 +10,11 @@ namespace Marker {
       preview_settings = new GLib.Settings ("com.github.fabiocolacio.marker.preferences.preview");
     }
     
-    public EditorWindow.ViewMode get_default_view_mode () {
-      return (EditorWindow.ViewMode) window_settings.get_enum ("view-mode");
+    public DocumentView.ViewMode get_default_view_mode () {
+      return (DocumentView.ViewMode) window_settings.get_enum ("view-mode");
     }
     
-    public void set_default_view_mode (EditorWindow.ViewMode view_mode) {
+    public void set_default_view_mode (DocumentView.ViewMode view_mode) {
       window_settings.set_enum ("view-mode", view_mode);
     }
     

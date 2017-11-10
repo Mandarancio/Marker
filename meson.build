@@ -16,10 +16,13 @@ res = gnome.compile_resources(
 )
 
 marker_sources = [
+  'src/Marker.vala',
   'src/MarkerApplication.vala',
   'src/MarkerEditorWindow.vala',
   'src/MarkerPreview.vala',
   'src/MarkerEditor.vala',
+  'src/MarkerDocumentView.vala',
+  'src/MarkerTabbedView.vala',
   'src/MarkerMarkdown.vala',
   'src/MarkerSettings.vala',
   res
