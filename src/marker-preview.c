@@ -10,6 +10,7 @@
 #include "marker-preview.h"
 #include "marker.h"
 
+
 struct _MarkerPreview
 {
   WebKitWebView parent_instance;
